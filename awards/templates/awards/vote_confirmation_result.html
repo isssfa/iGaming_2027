@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote confirmation</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            background: #0f1419;
+            color: #c8d4e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+        }
+        .card {
+            width: 100%;
+            max-width: 520px;
+            background: #1a222c;
+            border-radius: 12px;
+            border: 1px solid #2d3844;
+            overflow: hidden;
+            box-shadow: 0 24px 48px rgba(0,0,0,0.35);
+        }
+        .card-head {
+            padding: 28px 28px 12px;
+            background: linear-gradient(135deg, #1e2a38 0%, #141a22 100%);
+        }
+        .badge {
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #8ba3b8;
+            margin: 0 0 8px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #f0f4f8;
+            font-weight: 600;
+        }
+        .card-body { padding: 8px 28px 28px; }
+        .card-body p { line-height: 1.6; margin: 0 0 16px; }
+        .email { color: #7dd3c0; font-weight: 500; }
+        ul.votes {
+            list-style: none;
+            margin: 0 0 8px;
+            padding: 0;
+        }
+        ul.votes li {
+            padding: 14px 16px;
+            margin-bottom: 8px;
+            background: #141a22;
+            border-radius: 8px;
+            border: 1px solid #2d3844;
+        }
+        ul.votes .cat-label {
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #7a8fa3;
+            margin-bottom: 4px;
+        }
+        ul.votes .cat-title { color: #e8eef4; font-weight: 600; margin-bottom: 8px; }
+        ul.votes .nom-label {
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #7a8fa3;
+            margin-bottom: 4px;
+        }
+        ul.votes .nom-name { color: #7dd3c0; font-size: 1.05rem; }
+        .icon-wrap {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            font-size: 28px;
+        }
+        .ok { background: rgba(45, 157, 143, 0.2); color: #7dd3c0; }
+        .warn { background: rgba(212, 168, 75, 0.15); color: #d4a84b; }
+        .err { background: rgba(196, 90, 90, 0.15); color: #c45a5a; }
+        .foot {
+            padding: 16px 28px;
+            border-top: 1px solid #2d3844;
+            background: #121820;
+            font-size: 13px;
+            color: #6b7c8c;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        {% if status_text == 'confirmed' %}
+            <div class="card-head">
+                <div class="icon-wrap ok">✓</div>
+                <p class="badge">Success</p>
+                <h1>Your votes are confirmed</h1>
+            </div>
+            <div class="card-body">
+                <p>Thank you. We’ve recorded your choices for <span class="email">{{ voter_email }}</span>.</p>
+                <ul class="votes">
+                    {% for vote in votes %}
+                    <li>
+                        <div class="cat-label">Category</div>
+                        <div class="cat-title">{{ vote.category.title }}</div>
+                        <div class="nom-label">Your choice</div>
+                        <div class="nom-name">{{ vote.nominee.nominee }}</div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% elif status_text == 'already_confirmed' %}
+            <div class="card-head">
+                <div class="icon-wrap warn">!</div>
+                <p class="badge">Already confirmed</p>
+                <h1>These votes were already confirmed</h1>
+            </div>
+            <div class="card-body">
+                <p>You’ve already confirmed this batch of votes for <span class="email">{{ voter_email }}</span>. No changes were made.</p>
+                {% if votes %}
+                <p style="font-size:14px;color:#8ba3b8;">Selections on file:</p>
+                <ul class="votes">
+                    {% for vote in votes %}
+                    <li>
+                        <div class="cat-label">Category</div>
+                        <div class="cat-title">{{ vote.category.title }}</div>
+                        <div class="nom-label">Your choice</div>
+                        <div class="nom-name">{{ vote.nominee.nominee }}</div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="card-head">
+                <div class="icon-wrap err">×</div>
+                <p class="badge">Link invalid</p>
+                <h1>We couldn’t confirm from this link</h1>
+            </div>
+            <div class="card-body">
+                <p>This confirmation link is invalid or has expired. Please submit your vote again from the website.</p>
+                {% if support_email %}
+                <p>If you need help, contact: <span class="email">{{ support_email }}</span></p>
+                {% endif %}
+            </div>
+        {% endif %}
+        <div class="foot">iGaming Awards — vote confirmation</div>
+    </div>
+</body>
+</html>

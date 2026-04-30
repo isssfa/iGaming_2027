@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>New affiliate application</title>
+  <style>
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f4f2; color: #1a2e24; padding: 24px; }
+    .box { background: #fff; border-radius: 12px; padding: 28px; max-width: 640px; margin: 0 auto; box-shadow: 0 4px 24px rgba(22, 161, 92, 0.12); }
+    h1 { color: #16A15C; font-size: 20px; margin-top: 0; border-bottom: 2px solid #e8f6f0; padding-bottom: 12px; }
+    dl { margin: 0; }
+    dt { font-weight: 600; color: #128a4d; margin-top: 12px; }
+    dd { margin: 4px 0 0 0; word-break: break-word; }
+    .btn { display: inline-block; margin-top: 20px; padding: 10px 18px; background: #16A15C; color: #fff !important; text-decoration: none; border-radius: 8px; font-weight: 600; }
+    .footer { margin-top: 24px; font-size: 12px; color: #5c7268; }
+    ul.attach { margin: 4px 0 0 0; padding-left: 18px; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>New affiliate application</h1>
+    <p>A new affiliate registration was submitted. Review it in the admin and onboard manually if approved.</p>
+    <dl>
+      <dt>Name</dt>
+      <dd>{{ first_name }} {{ last_name }}</dd>
+      <dt>Email</dt>
+      <dd><a href="mailto:{{ email }}">{{ email }}</a></dd>
+      <dt>Phone</dt>
+      <dd>{{ phone }}</dd>
+      <dt>Identifies as affiliate</dt>
+      <dd>{% if is_affiliate %}Yes{% else %}No{% endif %}</dd>
+      <dt>Traffic sources</dt>
+      <dd>{{ traffic_sources }}</dd>
+      {% if traffic_source_other_label %}
+      <dt>Other source (description)</dt>
+      <dd>{{ traffic_source_other_label }}</dd>
+      {% endif %}
+      <dt>Per-source links / handles</dt>
+      <dd>
+        {% if traffic_source_details %}
+          {% for key, val in traffic_source_details.items %}
+            <p style="margin:4px 0;"><strong>{{ key }}:</strong> {% if val %}{{ val }}{% else %}—{% endif %}</p>
+          {% endfor %}
+        {% else %}—{% endif %}
+      </dd>
+      <dt>Traffic regions</dt>
+      <dd>{{ traffic_regions|linebreaksbr }}</dd>
+      <dt>Traffic volume</dt>
+      <dd>{{ traffic_volume }}</dd>
+      <dt>Payment preferences</dt>
+      <dd>{{ payment_preferences }}{% if payment_other_detail %} — {{ payment_other_detail }}{% endif %}</dd>
+      <dt>Proof attachments</dt>
+      <dd>
+        {% if proof_attachments %}
+          <ul class="attach">
+            {% for a in proof_attachments %}
+              <li>
+                <strong>{{ a.label }}</strong>
+                {% if a.url %} — <a href="{{ a.url }}">{{ a.url }}</a>{% endif %}
+                {% if a.file_display %} — file: {{ a.file_display }}{% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}—{% endif %}
+      </dd>
+      <dt>Additional notes</dt>
+      <dd>{% if additional_notes %}{{ additional_notes|linebreaksbr }}{% else %}—{% endif %}</dd>
+    </dl>
+    <a class="btn" href="{{ admin_url }}">Open in admin</a>
+    <p class="footer">Application ID: {{ application_id }} · Submitted {{ created_at }}</p>
+  </div>
+</body>
+</html>

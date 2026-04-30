@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Speaker Submission</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f7;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .header {
+            border-bottom: 2px solid #00a859;
+            margin-bottom: 20px;
+        }
+        .header h2 {
+            color: #00a859;
+        }
+        .details {
+            line-height: 1.8;
+        }
+        .details p {
+            margin: 10px 0;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 3px solid #00a859;
+        }
+        .section-title {
+            font-weight: bold;
+            color: #00a859;
+            margin-bottom: 10px;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+        }
+        .file-link {
+            color: #00a859;
+            text-decoration: none;
+        }
+        .file-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>🎤 New Speaker Submission</h2>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">👤 Personal Information</div>
+            <div class="details">
+                <p><strong>First Name:</strong> {{ first_name }}</p>
+                <p><strong>Last Name:</strong> {{ last_name }}</p>
+                <p><strong>Email:</strong> {{ email }}</p>
+                <p><strong>Phone Number:</strong> {{ phone_number }}</p>
+                <p><strong>LinkedIn Profile:</strong> {% if linkedin_profile != "Not provided" %}<a href="{{ linkedin_profile }}" class="file-link">{{ linkedin_profile }}</a>{% else %}{{ linkedin_profile }}{% endif %}</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🏢 Professional Information</div>
+            <div class="details">
+                <p><strong>Job Title:</strong> {{ job_title }}</p>
+                <p><strong>Company Name:</strong> {{ company_name }}</p>
+                <p><strong>Website URL:</strong> {% if website_url != "Not provided" %}<a href="{{ website_url }}" class="file-link">{{ website_url }}</a>{% else %}{{ website_url }}{% endif %}</p>
+                <p><strong>Company Type:</strong> {{ company_type }}</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🎯 Speaking Details</div>
+            <div class="details">
+                <p><strong>Type of Participation:</strong> {{ type_of_participation }}</p>
+                <p><strong>Talk Title:</strong> {{ talk_title }}</p>
+                <p><strong>Topic Description:</strong></p>
+                <p style="white-space: pre-wrap; background-color: #fff; padding: 10px; border-radius: 4px;">{{ topic_description }}</p>
+            </div>
+        </div>
+
+        {% if has_supporting_files %}
+        <div class="section">
+            <div class="section-title">📎 Supporting Files</div>
+            <div class="details">
+                <p><strong>File Attached:</strong> <a href="{{ supporting_files_url }}" class="file-link">Download Supporting File</a></p>
+                <p><em>Note: The file has also been attached to this email.</em></p>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="details">
+            <p><strong>🕒 Submitted:</strong> {{ created_at }}</p>
+        </div>
+
+        <div class="footer">
+            This notification was generated automatically by the speaker submission system.
+        </div>
+    </div>
+</body>
+</html>
+

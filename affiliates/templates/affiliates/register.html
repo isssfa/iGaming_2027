@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Affiliate registration — iGaming Afrika</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #16A15C;
+      --primary-dark: #128a4d;
+      --primary-soft: #e8f6f0;
+      --primary-muted: #c8edd9;
+      --text: #1a2e24;
+      --muted: #5c7268;
+      --surface: #ffffff;
+      --radius: 14px;
+      --shadow: 0 8px 40px rgba(22, 161, 92, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      color: var(--text);
+      background: linear-gradient(165deg, var(--primary-soft) 0%, #f5faf7 45%, #eef5f1 100%);
+    }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 64px; }
+    header { text-align: center; margin-bottom: 28px; }
+    .badge {
+      display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--primary-dark); background: var(--primary-muted); padding: 6px 14px; border-radius: 999px; margin-bottom: 12px;
+    }
+    h1 { font-size: clamp(1.75rem, 4vw, 2.15rem); font-weight: 700; margin: 0 0 10px; letter-spacing: -0.02em; }
+    .lead { margin: 0; font-size: 1.05rem; color: var(--muted); line-height: 1.55; max-width: 520px; margin-left: auto; margin-right: auto; }
+    .card {
+      background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 28px 26px 32px; border: 1px solid rgba(22, 161, 92, 0.08);
+    }
+    @media (min-width: 640px) { .card { padding: 36px 40px 40px; } }
+    fieldset { border: none; margin: 0 0 22px; padding: 0; }
+    legend { font-size: 15px; font-weight: 600; color: var(--primary-dark); margin-bottom: 12px; padding: 0; }
+    label { display: block; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .req { color: #c43d3d; }
+    input[type="text"], input[type="email"], input[type="tel"], input[type="url"], textarea, select {
+      width: 100%; padding: 11px 14px; font: inherit; font-size: 15px;
+      border: 1px solid var(--primary-muted); border-radius: 10px; background: #fafdfb;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(22, 161, 92, 0.2); background: #fff;
+    }
+    textarea { min-height: 72px; resize: vertical; }
+    .row-2 { display: grid; gap: 14px; }
+    @media (min-width: 560px) { .row-2 { grid-template-columns: 1fr 1fr; } }
+    .hint { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.45; }
+    .radio-row { display: flex; flex-wrap: wrap; gap: 16px; }
+    .radio-row label { display: flex; align-items: center; gap: 8px; font-weight: 500; cursor: pointer; }
+    .radio-row input { width: auto; }
+    .checks {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px 14px;
+    }
+    .checks label { display: flex; align-items: center; gap: 8px; font-weight: 500; font-size: 14px; margin: 0; cursor: pointer; }
+    .checks input { width: auto; accent-color: var(--primary); }
+    .callout {
+      background: linear-gradient(135deg, var(--primary-soft), #f0faf5);
+      border: 1px solid var(--primary-muted); border-radius: 12px; padding: 16px 18px; margin-bottom: 22px;
+    }
+    .callout strong { color: var(--primary-dark); display: block; margin-bottom: 8px; font-size: 14px; }
+    .callout ul { margin: 0; padding-left: 18px; font-size: 13px; color: var(--muted); line-height: 1.55; }
+    .sub-panel {
+      margin-top: 14px; padding: 14px 16px; background: #fafdfb; border: 1px solid var(--primary-muted); border-radius: 10px;
+    }
+    .sub-panel label { font-size: 13px; }
+    #traffic-panels:empty { display: none; }
+    .proof-block { margin-top: 12px; padding: 12px; background: #fafdfb; border-radius: 10px; border: 1px dashed var(--primary-muted); }
+    .proof-row { display: grid; gap: 10px; margin-bottom: 10px; align-items: end; }
+    @media (min-width: 520px) {
+      .proof-row { grid-template-columns: 1fr 2fr auto; }
+    }
+    .proof-row-file { grid-template-columns: 1fr 2fr auto; }
+    .btn-ghost {
+      font: inherit; font-size: 13px; font-weight: 600; padding: 8px 12px; border-radius: 8px;
+      border: 1px solid var(--primary-muted); background: #fff; color: var(--primary-dark); cursor: pointer;
+    }
+    .btn-ghost:hover { background: var(--primary-soft); }
+    button[type="submit"] {
+      width: 100%; margin-top: 8px; padding: 14px 22px; font: inherit; font-size: 16px; font-weight: 600;
+      color: #fff; background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border: none; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 16px rgba(22, 161, 92, 0.35);
+    }
+    button[type="submit"]:disabled { opacity: 0.65; cursor: not-allowed; }
+    .msg { margin-top: 16px; padding: 12px 14px; border-radius: 10px; font-size: 14px; display: none; }
+    .msg.ok { display: block; background: var(--primary-soft); color: var(--primary-dark); border: 1px solid var(--primary-muted); }
+    .msg.err { display: block; background: #fdf2f2; color: #9b2c2c; border: 1px solid #f5c2c2; }
+    footer { text-align: center; margin-top: 28px; font-size: 12px; color: var(--muted); }
+    #payment-other-wrap { margin-top: 12px; display: none; }
+    #payment-other-wrap.is-visible { display: block; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="badge">Partners</span>
+      <h1>Affiliate registration</h1>
+      <p class="lead">Apply to promote our offers. We review every application and will email you with a decision.</p>
+    </header>
+
+    <div class="card">
+      <div class="callout">
+        <strong>Proof of affiliate activity</strong>
+        <ul>
+          <li>Clearly show your name or account ID</li>
+          <li>Show recent activity (last 30–60 days preferred)</li>
+          <li>Be unedited and readable</li>
+          <li>Accepted file types: .jpg, .jpeg, .png, .pdf (max 2MB each)</li>
+        </ul>
+        <p class="hint" style="margin:10px 0 0;">Add proof links and/or files for each source you use (or use Extra). Applications without sufficient proof may be delayed or rejected.</p>
+      </div>
+
+      <form id="aff-form" novalidate>
+        <fieldset>
+          <legend>Contact <span class="req">*</span></legend>
+          <div class="row-2">
+            <div>
+              <label for="firstName">First name <span class="req">*</span></label>
+              <input id="firstName" name="firstName" type="text" required autocomplete="given-name">
+            </div>
+            <div>
+              <label for="lastName">Last name <span class="req">*</span></label>
+              <input id="lastName" name="lastName" type="text" required autocomplete="family-name">
+            </div>
+          </div>
+          <div style="margin-top:14px;">
+            <label for="email">Email address <span class="req">*</span></label>
+            <input id="email" name="email" type="email" required autocomplete="email">
+          </div>
+          <div style="margin-top:14px;">
+            <label for="phoneNumber">Phone number <span class="req">*</span></label>
+            <input id="phoneNumber" name="phoneNumber" type="tel" required autocomplete="tel">
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Are you an affiliate? <span class="req">*</span></legend>
+          <div class="radio-row">
+            <label><input type="radio" name="isAffiliate" value="true" required> Yes</label>
+            <label><input type="radio" name="isAffiliate" value="false"> No</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>What are your traffic sources? <span class="req">*</span></legend>
+          <div class="checks" id="traffic-checks">
+            <label><input type="checkbox" value="Web"> Web</label>
+            <label><input type="checkbox" value="Facebook"> Facebook</label>
+            <label><input type="checkbox" value="Telegram"> Telegram</label>
+            <label><input type="checkbox" value="Whatsapp"> Whatsapp</label>
+            <label><input type="checkbox" value="Twitter/X"> Twitter/X</label>
+            <label><input type="checkbox" value="Offline"> Offline</label>
+            <label><input type="checkbox" value="Instagram"> Instagram</label>
+            <label><input type="checkbox" value="Tiktok"> Tiktok</label>
+            <label><input type="checkbox" value="Youtube"> Youtube</label>
+            <label><input type="checkbox" value="Linkedin"> Linkedin</label>
+            <label><input type="checkbox" value="Other"> Other</label>
+          </div>
+          <p class="hint">Select all that apply. We will ask for links or handles only for the options you select.</p>
+        </fieldset>
+
+        <fieldset>
+          <legend>Details for selected sources <span class="req">*</span></legend>
+          <div id="traffic-panels"></div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Preferred means of payment <span class="req">*</span></legend>
+          <p class="hint" style="margin:0 0 10px;">Select all that apply.</p>
+          <div class="checks" id="payment-checks">
+            <label><input type="checkbox" value="Revshare"> Revshare</label>
+            <label><input type="checkbox" value="CPA"> CPA</label>
+            <label><input type="checkbox" value="Hybrid"> Hybrid</label>
+            <label><input type="checkbox" value="Cash payment"> Cash payment</label>
+            <label><input type="checkbox" value="Other"> Other</label>
+          </div>
+          <div id="payment-other-wrap">
+            <label for="paymentOtherDetail">Specify your preferred payment <span class="req">*</span></label>
+            <input id="paymentOtherDetail" name="paymentOtherDetail" type="text" placeholder="Describe how you would like to be paid" maxlength="255">
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Which regions does your traffic originate from? <span class="req">*</span></legend>
+          <label for="trafficRegions">Regions <span class="req">*</span></label>
+          <textarea id="trafficRegions" name="trafficRegions" required placeholder="e.g. Kenya, Nigeria, South Africa, UK..."></textarea>
+          <p class="hint">You can list countries/regions separated by commas or new lines.</p>
+        </fieldset>
+
+        <fieldset>
+          <legend>What is the volume of your traffic? <span class="req">*</span></legend>
+          <label for="trafficVolume">Traffic volume <span class="req">*</span></label>
+          <input id="trafficVolume" name="trafficVolume" type="text" required placeholder="e.g. 50,000 visits/month, 2,000 clicks/week">
+        </fieldset>
+
+        <fieldset>
+          <legend>Proof — URLs <span class="req">*</span></legend>
+          <p class="hint">Add one or more proof links. Label each row (your selected source or Extra).</p>
+          <div id="proof-url-rows"></div>
+          <button type="button" class="btn-ghost" id="add-proof-url">+ Add proof URL</button>
+        </fieldset>
+
+        <fieldset>
+          <legend>Proof — file uploads</legend>
+          <p class="hint">Optional: upload screenshots or documents (max 2MB each). Label each file.</p>
+          <div id="proof-file-rows"></div>
+          <button type="button" class="btn-ghost" id="add-proof-file">+ Add proof file</button>
+        </fieldset>
+
+        <fieldset>
+          <legend>Additional notes (optional)</legend>
+          <label for="additionalNotes">Anything else we should know?</label>
+          <textarea id="additionalNotes" name="additionalNotes" rows="3"></textarea>
+        </fieldset>
+
+        <button type="submit" id="submit-btn">Submit application</button>
+        <div id="form-msg" class="msg" role="status"></div>
+      </form>
+    </div>
+
+    <footer>iGaming Afrika · Affiliate program</footer>
+  </div>
+
+  <script>
+(function () {
+  var API_BASE = '/api';
+  var form = document.getElementById('aff-form');
+  var msg = document.getElementById('form-msg');
+  var btn = document.getElementById('submit-btn');
+  var trafficChecks = document.getElementById('traffic-checks');
+  var trafficPanels = document.getElementById('traffic-panels');
+  var paymentChecks = document.getElementById('payment-checks');
+  var paymentOtherWrap = document.getElementById('payment-other-wrap');
+  var proofUrlRows = document.getElementById('proof-url-rows');
+  var proofFileRows = document.getElementById('proof-file-rows');
+
+  var DETAIL = {
+    'Web': { t: 'Web — website URL', h: 'Full URL starting with https://', ph: 'https://' },
+    'Facebook': { t: 'Facebook — page URL or username', h: 'Profile/page link or @username', ph: 'https://facebook.com/...' },
+    'Telegram': { t: 'Telegram — channel or username', h: 'Channel link, @username, or t.me/...', ph: 'https://t.me/...' },
+    'Whatsapp': { t: 'WhatsApp — number or link', h: 'Business number or wa.me link', ph: '+... or https://wa.me/...' },
+    'Twitter/X': { t: 'X (Twitter) — profile URL or @handle', h: 'Link to profile or @handle', ph: 'https://x.com/...' },
+    'Instagram': { t: 'Instagram — profile URL or @username', h: 'Link or @username', ph: 'https://instagram.com/...' },
+    'Tiktok': { t: 'TikTok — profile URL or @username', h: 'Link or @username', ph: 'https://www.tiktok.com/@...' },
+    'Youtube': { t: 'YouTube — channel URL or handle', h: 'Channel link or @handle', ph: 'https://youtube.com/...' },
+    'Linkedin': { t: 'LinkedIn — profile or company URL', h: 'Public profile or page URL', ph: 'https://linkedin.com/in/...' }
+  };
+
+  function getCheckedSources() {
+    return Array.prototype.map.call(
+      trafficChecks.querySelectorAll('input:checked'),
+      function (el) { return el.value; }
+    );
+  }
+
+  function renderTrafficPanels() {
+    var checked = getCheckedSources();
+    trafficPanels.innerHTML = '';
+    checked.forEach(function (src) {
+      if (src === 'Offline') return;
+      if (src === 'Other') {
+        var div = document.createElement('div');
+        div.className = 'sub-panel';
+        div.innerHTML =
+          '<label for="trafficSourceOtherLabel">Other — describe your source <span class="req">*</span></label>' +
+          '<input type="text" id="trafficSourceOtherLabel" maxlength="255" placeholder="e.g. Podcast, newsletter, community">' +
+          '<p class="hint" style="margin-top:10px;">Optional link or handle for that source</p>' +
+          '<label for="detailOther">Link or handle (optional)</label>' +
+          '<input type="text" id="detailOther" class="detail-other" data-source="Other" placeholder="https://... or @handle">';
+        trafficPanels.appendChild(div);
+        return;
+      }
+      var cfg = DETAIL[src];
+      if (!cfg) return;
+      var d = document.createElement('div');
+      d.className = 'sub-panel';
+      d.innerHTML =
+        '<label>' + cfg.t + ' <span class="req">*</span></label>' +
+        '<input type="text" class="detail-input" data-source="' + src.replace(/"/g, '') + '" placeholder="' + cfg.ph.replace(/"/g, '&quot;') + '">' +
+        '<p class="hint">' + cfg.h + '</p>';
+      trafficPanels.appendChild(d);
+    });
+  }
+
+  trafficChecks.addEventListener('change', function () {
+    renderTrafficPanels();
+    refreshProofLabels();
+  });
+
+  paymentChecks.addEventListener('change', function () {
+    var hasOther = !!paymentChecks.querySelector('input[value="Other"]:checked');
+    paymentOtherWrap.classList.toggle('is-visible', hasOther);
+  });
+
+  function labelOptionsHtml() {
+    var opts = getCheckedSources().concat(['Extra']);
+    return opts.map(function (o) {
+      return '<option value="' + o.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '">' + o.replace(/</g, '&lt;') + '</option>';
+    }).join('');
+  }
+
+  function refreshProofLabels() {
+    var html = labelOptionsHtml();
+    document.querySelectorAll('.proof-url-label, .proof-file-label').forEach(function (sel) {
+      var cur = sel.value;
+      sel.innerHTML = html;
+      var ok = Array.prototype.some.call(sel.options, function (o) { return o.value === cur; });
+      if (ok) sel.value = cur;
+    });
+  }
+
+  function addProofUrlRow() {
+    var row = document.createElement('div');
+    row.className = 'proof-row proof-url-block';
+    row.innerHTML =
+      '<div><label>Label</label><select class="proof-url-label">' + labelOptionsHtml() + '</select></div>' +
+      '<div><label>Proof URL</label><input type="url" class="proof-url-input" placeholder="https://"></div>' +
+      '<div><button type="button" class="btn-ghost rm-proof-url">Remove</button></div>';
+    row.querySelector('.rm-proof-url').addEventListener('click', function () { row.remove(); });
+    proofUrlRows.appendChild(row);
+  }
+
+  function addProofFileRow() {
+    var row = document.createElement('div');
+    row.className = 'proof-row proof-row-file proof-file-block';
+    row.innerHTML =
+      '<div><label>Label</label><select class="proof-file-label">' + labelOptionsHtml() + '</select></div>' +
+      '<div><label>File</label><input type="file" class="proof-file-input" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf"></div>' +
+      '<div><button type="button" class="btn-ghost rm-proof-file">Remove</button></div>';
+    row.querySelector('.rm-proof-file').addEventListener('click', function () { row.remove(); });
+    proofFileRows.appendChild(row);
+  }
+
+  document.getElementById('add-proof-url').addEventListener('click', addProofUrlRow);
+  document.getElementById('add-proof-file').addEventListener('click', addProofFileRow);
+
+  renderTrafficPanels();
+  addProofUrlRow();
+
+  function showMsg(text, ok) {
+    msg.textContent = text;
+    msg.className = 'msg ' + (ok ? 'ok' : 'err');
+  }
+
+  function getCsrfToken() {
+    return fetch(API_BASE + '/security/csrf-token/', { credentials: 'same-origin' }).then(function (r) {
+      if (!r.ok) throw new Error('Could not get security token. Refresh the page.');
+      return r.json();
+    }).then(function (data) { return data.csrf_token; });
+  }
+
+  function buildTrafficDetails() {
+    var details = {};
+    var inputs = trafficPanels.querySelectorAll('.detail-input');
+    for (var i = 0; i < inputs.length; i++) {
+      var el = inputs[i];
+      details[el.getAttribute('data-source')] = el.value.trim();
+    }
+    var otherLink = trafficPanels.querySelector('.detail-other');
+    if (otherLink) details.Other = otherLink.value.trim();
+    return details;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    msg.className = 'msg';
+    msg.textContent = '';
+
+    var checked = getCheckedSources();
+    if (checked.length === 0) {
+      showMsg('Please select at least one traffic source.', false);
+      return;
+    }
+
+    var isAffiliateEl = form.querySelector('input[name="isAffiliate"]:checked');
+    if (!isAffiliateEl) {
+      showMsg('Please answer whether you are an affiliate.', false);
+      return;
+    }
+
+    var details = buildTrafficDetails();
+    var needOther = checked.indexOf('Other') >= 0;
+    if (needOther) {
+      var on = document.getElementById('trafficSourceOtherLabel');
+      if (!on || !on.value.trim()) {
+        showMsg('Please describe your other traffic source.', false);
+        return;
+      }
+    }
+
+    var sourcesNeeding = ['Web', 'Facebook', 'Telegram', 'Whatsapp', 'Twitter/X', 'Instagram', 'Tiktok', 'Youtube', 'Linkedin'];
+    for (var si = 0; si < sourcesNeeding.length; si++) {
+      var s = sourcesNeeding[si];
+      if (checked.indexOf(s) >= 0 && !(details[s] || '').trim()) {
+        showMsg('Please fill in the URL or username/handle for ' + s + '.', false);
+        return;
+      }
+    }
+
+    var paymentSelected = Array.prototype.map.call(
+      paymentChecks.querySelectorAll('input:checked'),
+      function (el) { return el.value; }
+    );
+    if (paymentSelected.length === 0) {
+      showMsg('Please select at least one payment preference.', false);
+      return;
+    }
+    var hasPaymentOther = paymentSelected.indexOf('Other') >= 0;
+    if (hasPaymentOther) {
+      var pod2 = document.getElementById('paymentOtherDetail');
+      if (!pod2 || !pod2.value.trim()) {
+        showMsg('Please specify your preferred payment means.', false);
+        return;
+      }
+    }
+
+    var trafficRegions = document.getElementById('trafficRegions').value.trim();
+    if (!trafficRegions) {
+      showMsg('Please enter the regions your traffic originates from.', false);
+      return;
+    }
+    var trafficVolume = document.getElementById('trafficVolume').value.trim();
+    if (!trafficVolume) {
+      showMsg('Please enter your traffic volume.', false);
+      return;
+    }
+
+    var proofUrlItems = [];
+    proofUrlRows.querySelectorAll('.proof-url-block').forEach(function (row) {
+      var lab = row.querySelector('.proof-url-label');
+      var inp = row.querySelector('.proof-url-input');
+      if (!lab || !inp) return;
+      proofUrlItems.push({ label: lab.value, url: (inp.value || '').trim() });
+    });
+
+    var proofFiles = [];
+    var proofFileLabels = [];
+    try {
+      proofFileRows.querySelectorAll('.proof-file-block').forEach(function (row) {
+        var lab = row.querySelector('.proof-file-label');
+        var fi = row.querySelector('.proof-file-input');
+        if (!lab || !fi || !fi.files || !fi.files[0]) return;
+        var f = fi.files[0];
+        if (f.size > 2 * 1024 * 1024) {
+          throw new Error('Each proof file must be 2MB or smaller.');
+        }
+        proofFiles.push(f);
+        proofFileLabels.push(lab.value);
+      });
+    } catch (err) {
+      showMsg(err.message || 'Invalid file.', false);
+      return;
+    }
+
+    var hasUrl = proofUrlItems.some(function (x) { return x.url; });
+    if (!hasUrl && proofFiles.length === 0) {
+      showMsg('Please add at least one proof URL (with a filled URL field) or upload at least one proof file.', false);
+      return;
+    }
+
+    btn.disabled = true;
+    getCsrfToken().then(function (csrf) {
+      var fd = new FormData();
+      fd.append('firstName', document.getElementById('firstName').value.trim());
+      fd.append('lastName', document.getElementById('lastName').value.trim());
+      fd.append('email', document.getElementById('email').value.trim());
+      fd.append('phoneNumber', document.getElementById('phoneNumber').value.trim());
+      fd.append('isAffiliate', isAffiliateEl.value);
+      fd.append('trafficSources', checked.join(','));
+      fd.append('trafficSourceDetails', JSON.stringify(details));
+      if (needOther) {
+        fd.append('trafficSourceOtherLabel', document.getElementById('trafficSourceOtherLabel').value.trim());
+      } else {
+        fd.append('trafficSourceOtherLabel', '');
+      }
+      fd.append('trafficRegions', trafficRegions);
+      fd.append('trafficVolume', trafficVolume);
+      fd.append('paymentPreferences', paymentSelected.join(','));
+      fd.append('paymentOtherDetail', hasPaymentOther ? document.getElementById('paymentOtherDetail').value.trim() : '');
+      fd.append('proofUrlItems', JSON.stringify(proofUrlItems));
+      proofFiles.forEach(function (f) { fd.append('proofFiles', f); });
+      fd.append('proofFileLabels', JSON.stringify(proofFileLabels));
+      fd.append('additionalNotes', document.getElementById('additionalNotes').value.trim());
+      fd.append('csrf_token', csrf);
+
+      return fetch(API_BASE + '/affiliates/register/', {
+        method: 'POST',
+        body: fd,
+        credentials: 'same-origin',
+        headers: { 'X-CSRF-Token': csrf },
+      });
+    }).then(function (res) {
+      return res.json().then(function (data) {
+        return { res: res, data: data };
+      });
+    }).then(function (o) {
+      if (o.res.ok) {
+        showMsg(o.data.message || 'Thank you. Your application was received.', true);
+        form.reset();
+        trafficPanels.innerHTML = '';
+        proofUrlRows.innerHTML = '';
+        proofFileRows.innerHTML = '';
+        renderTrafficPanels();
+        paymentOtherWrap.classList.remove('is-visible');
+        addProofUrlRow();
+        refreshProofLabels();
+      } else {
+        var t = o.data.detail || 'Please check the form and try again.';
+        if (typeof o.data === 'object' && o.data !== null) {
+          var parts = [];
+          Object.keys(o.data).forEach(function (k) {
+            var v = o.data[k];
+            if (Array.isArray(v)) parts.push(k + ': ' + v.join(' '));
+            else if (typeof v === 'object' && v !== null) {
+              Object.keys(v).forEach(function (k2) {
+                var v2 = v[k2];
+                parts.push(k2 + ': ' + (Array.isArray(v2) ? v2.join(' ') : v2));
+              });
+            } else if (k !== 'detail') parts.push(k + ': ' + v);
+          });
+          if (parts.length) t = parts.join(' ');
+        }
+        showMsg(t, false);
+      }
+    }).catch(function (err) {
+      showMsg(err.message || 'Something went wrong. Please try again.', false);
+    }).then(function () {
+      btn.disabled = false;
+    });
+  });
+})();
+  </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+    <h1 style="display:inline-block;margin-right:16px;">Awards Vote Summary</h1>
+    <p style="margin:8px 0 16px;">
+        <a class="button" href="{% url 'admin:awards_vote_summary_export' %}">Download CSV</a>
+    </p>
+    <table class="adminlist table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th style="text-align:left;">Category</th>
+                <th style="text-align:left;">Nominee</th>
+                <th style="text-align:right;">Confirmed</th>
+                <th style="text-align:right;">Unconfirmed</th>
+                <th style="text-align:right;">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in summary %}
+                <tr>
+                    <td>{{ row.category__title }}</td>
+                    <td>{{ row.nominee__nominee }}</td>
+                    <td style="text-align:right;">{{ row.confirmed_votes }}</td>
+                    <td style="text-align:right;">{{ row.unconfirmed_votes }}</td>
+                    <td style="text-align:right;">{{ row.total_votes }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">No votes submitted yet.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <a href="{% url 'admin:awards_vote_changelist' %}">Back to Vote List</a>
+{% endblock %}
+

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Award Nomination</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f7;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .header {
+            border-bottom: 2px solid #00a859;
+            margin-bottom: 20px;
+        }
+        .header h2 {
+            color: #00a859;
+        }
+        .details {
+            line-height: 1.8;
+        }
+        .details p {
+            margin: 10px 0;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 3px solid #00a859;
+        }
+        .section-title {
+            font-weight: bold;
+            color: #00a859;
+            margin-bottom: 10px;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>🏆 New Award Nomination</h2>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">👤 Nominator Information</div>
+            <div class="details">
+                <p><strong>Full Name:</strong> {{ full_name }}</p>
+                <p><strong>Email:</strong> {{ email }}</p>
+                <p><strong>Phone Number:</strong> {{ phone_number }}</p>
+                <p><strong>Company:</strong> {{ company }}</p>
+                <p><strong>Role:</strong> {{ role }}</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🎯 Nomination Details</div>
+            <div class="details">
+                <p><strong>Nominated Company:</strong> {{ nominated_company }}</p>
+                <p><strong>Award Category:</strong> {{ award_category }}</p>
+                <p><strong>Reason for Nomination:</strong></p>
+                <p style="white-space: pre-wrap; background-color: #fff; padding: 10px; border-radius: 4px;">{{ reason_for_nomination }}</p>
+            </div>
+        </div>
+
+        <div class="details">
+            <p><strong>🕒 Submitted:</strong> {{ created_at }}</p>
+        </div>
+
+        <div class="footer">
+            This notification was generated automatically by the nomination system.
+        </div>
+    </div>
+</body>
+</html>
+

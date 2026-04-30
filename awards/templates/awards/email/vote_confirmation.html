@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm your vote</title>
+    <!--[if mso]>
+    <noscript>
+        <xml>
+            <o:OfficeDocumentSettings>
+                <o:PixelsPerInch>96</o:PixelsPerInch>
+            </o:OfficeDocumentSettings>
+        </xml>
+    </noscript>
+    <![endif]-->
+</head>
+<body style="margin:0;padding:0;background-color:#0f1419;font-family:Georgia,'Times New Roman',serif;-webkit-font-smoothing:antialiased;">
+    <div style="display:none;max-height:0;overflow:hidden;opacity:0;">
+        Confirm your iGaming Awards selections — one click to finalize your votes.
+    </div>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#0f1419;padding:24px 12px;">
+        <tr>
+            <td align="center">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:560px;background-color:#1a222c;border-radius:12px;overflow:hidden;border:1px solid #2d3844;">
+                    <tr>
+                        <td style="padding:28px 28px 8px 28px;background:linear-gradient(135deg,#1e2a38 0%,#141a22 100%);">
+                            <p style="margin:0;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#8ba3b8;font-family:system-ui,-apple-system,sans-serif;">iGaming Awards</p>
+                            <h1 style="margin:12px 0 0 0;font-size:24px;line-height:1.25;color:#f0f4f8;font-weight:600;font-family:system-ui,-apple-system,sans-serif;">Confirm your vote</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:8px 28px 24px 28px;color:#c8d4e0;font-size:16px;line-height:1.6;">
+                            <p style="margin:0 0 16px 0;">Hello <strong style="color:#e8eef4;">{{ voter_name }}</strong>,</p>
+                            <p style="margin:0 0 20px 0;">Thank you for taking part. Below is a summary of your selections. <strong style="color:#e8eef4;">Your votes will only be counted after you confirm</strong> using the button or link below.</p>
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:separate;border-spacing:0;margin:0 0 24px 0;">
+                                {% for row in vote_rows %}
+                                <tr>
+                                    <td style="padding:14px 16px;border-bottom:1px solid #2d3844;background-color:#141a22;">
+                                        <p style="margin:0 0 4px 0;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#7a8fa3;font-family:system-ui,-apple-system,sans-serif;">Category</p>
+                                        <p style="margin:0 0 12px 0;font-size:15px;color:#e8eef4;font-weight:600;font-family:system-ui,-apple-system,sans-serif;">{{ row.category_title }}</p>
+                                        <p style="margin:0 0 4px 0;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#7a8fa3;font-family:system-ui,-apple-system,sans-serif;">Your choice</p>
+                                        <p style="margin:0;font-size:16px;color:#7dd3c0;">{{ row.nominee_name }}</p>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                            <!-- Button (bulletproof for many clients) -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin:0 auto 20px auto;">
+                                <tr>
+                                    <td align="center" bgcolor="#2d9d8f" style="border-radius:8px;">
+                                        <a href="{{ confirm_url }}" target="_blank" style="display:inline-block;padding:14px 32px;font-family:system-ui,-apple-system,sans-serif;font-size:16px;font-weight:600;color:#ffffff;text-decoration:none;border-radius:8px;">Confirm all votes</a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p style="margin:0 0 8px 0;font-size:13px;color:#8ba3b8;">If the button doesn’t work, copy and paste this link into your browser:</p>
+                            <p style="margin:0;word-break:break-all;font-size:13px;color:#5eb8aa;font-family:system-ui,Consolas,monospace;">
+                                <a href="{{ confirm_url }}" target="_blank" style="color:#5eb8aa;text-decoration:underline;">{{ confirm_url }}</a>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:16px 28px 24px 28px;border-top:1px solid #2d3844;background-color:#121820;">
+                            <p style="margin:0;font-size:12px;line-height:1.5;color:#6b7c8c;">This link confirms every category you selected in this submission at once. If you didn’t submit this vote, you can ignore this email.</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
