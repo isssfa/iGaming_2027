@@ -12,7 +12,8 @@ from rest_framework.views import APIView
 from logs.utils import log_message
 from security.permissions import ProtectedPostPermission
 from coreconfig.service import email_service
-from .serializers import EventRegistrationSerializer, InquirySerializer
+from .models import Panel, Ticket
+from .serializers import EventRegistrationSerializer, InquirySerializer, PanelSerializer, TicketSerializer
 
 
 class EventRegistrationView(APIView):
@@ -37,7 +38,15 @@ class EventRegistrationView(APIView):
                     "company_name": registration.company_name,
                     "work_email": registration.work_email,
                     "phone_number": registration.phone_number,
-                    "interests": registration.interests,
+                    "nationality": registration.nationality,
+                    "website_url": registration.website_url,
+                    "job_title": registration.job_title,
+                    "job_level": registration.job_level,
+                    "company_operation": registration.company_operation,
+                    "form_type": registration.form_type,
+                    "brands": registration.get_brands_list(),
+                    "products": registration.get_products_list(),
+                    "interests": registration.get_interests_list(),
                     "created_at": registration.created_at,
                 }
                 email_queue = email_service.send_email_task(
@@ -106,4 +115,22 @@ class InquiryView(APIView):
         user = getattr(request, 'user', None) if hasattr(request, 'user') and request.user.is_authenticated else None
         log_message("CRITICAL", f"{serializer.errors}", user=user, source_app='base_InquiryView_3')
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class PanelListView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        queryset = Panel.objects.select_related("moderator").prefetch_related("speakers").all()
+        serializer = PanelSerializer(queryset, many=True, context={"request": request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class TicketListView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        queryset = Ticket.objects.filter(is_active=True).all()
+        serializer = TicketSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 

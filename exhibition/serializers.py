@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import ExhibitionTier, ExhibitionOption, ExhibitionImage
+from .models import ExhibitionTier, ExhibitionOption, ExhibitionImage, Exhibitor
 import base64
 import mimetypes
 from urllib.parse import urljoin
@@ -101,3 +101,28 @@ class ExhibitionTierSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExhibitionTier
         fields = ['tier', 'options']
+
+
+class ExhibitorSerializer(serializers.ModelSerializer):
+    standInformation = serializers.CharField(source='stand_information', allow_null=True)
+    social = serializers.SerializerMethodField()
+    image = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Exhibitor
+        fields = ['name', 'description', 'image', 'website', 'social', 'standInformation']
+
+    def get_social(self, obj):
+        social = {
+            "twitter": obj.twitter,
+            "linkedin": obj.linkedin,
+            "instagram": obj.instagram,
+            "facebook": obj.facebook,
+        }
+        return {key: value for key, value in social.items() if value}
+
+    def get_image(self, obj):
+        request = self.context.get('request')
+        if obj.image and request:
+            return request.build_absolute_uri(obj.image.url)
+        return None

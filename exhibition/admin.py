@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ExhibitionTier, ExhibitionOption, ExhibitionImage
+from .models import ExhibitionTier, ExhibitionOption, ExhibitionImage, Exhibitor
 from import_export.admin import ImportExportModelAdmin
 
 # Inline for ExhibitionImage (to be nested under ExhibitionOption)
@@ -64,6 +64,19 @@ class ExhibitionTierAdmin(ImportExportModelAdmin):
             'classes': ('collapse',)
         })
     )
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.added_by = request.user
+        super().save_model(request, obj, form, change)
+
+
+@admin.register(Exhibitor)
+class ExhibitorAdmin(ImportExportModelAdmin):
+    list_display = ('name', 'stand_information', 'is_active', 'added_by', 'created_at')
+    list_filter = ('is_active', 'created_at')
+    search_fields = ('name', 'stand_information')
+    readonly_fields = ('created_at', 'updated_at', 'added_by')
 
     def save_model(self, request, obj, form, change):
         if not change:

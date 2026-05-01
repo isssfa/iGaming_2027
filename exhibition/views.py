@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 from django.db.models import Prefetch
-from .models import ExhibitionTier, ExhibitionOption, ExhibitionImage
-from .serializers import ExhibitionTierSerializer
+from .models import ExhibitionTier, ExhibitionOption, ExhibitionImage, Exhibitor
+from .serializers import ExhibitionTierSerializer, ExhibitorSerializer
 
 class ExhibitionListAPIView(APIView):
     """
@@ -28,4 +28,13 @@ class ExhibitionListAPIView(APIView):
             queryset = queryset.filter(name__iexact=tier_name) # Case-insensitive filter
 
         serializer = ExhibitionTierSerializer(queryset, many=True, context={'request': request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ExhibitorListAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, *args, **kwargs):
+        queryset = Exhibitor.objects.filter(is_active=True).all()
+        serializer = ExhibitorSerializer(queryset, many=True, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)

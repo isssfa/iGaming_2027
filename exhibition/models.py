@@ -7,6 +7,14 @@ from django.utils.text import slugify
 
 User = get_user_model()
 
+
+def exhibitor_image_upload_path(instance, filename):
+    ext = filename.split('.')[-1]
+    timestamp = int(time.time())
+    exhibitor_slug = slugify(instance.name)
+    filename = f"{exhibitor_slug}_{timestamp}.{ext}"
+    return os.path.join('exhibitors', filename)
+
 class ExhibitionTier(models.Model):
     """
     Represents the different tiers of exhibition packages (e.g., Platinum, Gold).
@@ -119,3 +127,31 @@ class ExhibitionImage(models.Model):
 
     def __str__(self):
         return f"Image for {self.option}"
+
+
+class Exhibitor(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    description = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to=exhibitor_image_upload_path, null=True, blank=True)
+    website = models.URLField(blank=True, null=True)
+    twitter = models.URLField(blank=True, null=True)
+    linkedin = models.URLField(blank=True, null=True)
+    instagram = models.URLField(blank=True, null=True)
+    facebook = models.URLField(blank=True, null=True)
+    stand_information = models.CharField(max_length=100, blank=True, null=True, help_text="Exhibition booth number e.g. E02")
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    added_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='added_exhibitors',
+    )
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name

@@ -8,16 +8,26 @@ from django.core.files.base import ContentFile
 
 class SponsorDetailSerializer(serializers.ModelSerializer):
     logo = serializers.SerializerMethodField()
+    social = serializers.SerializerMethodField()
 
     class Meta:
         model = Sponsor
-        fields = ['name', 'logo', 'url']
+        fields = ['name', 'logo', 'url', 'social']
 
     def get_logo(self, obj):
         request = self.context.get('request')  # Only works in serializers with context
         if obj.logo and request:
             return request.build_absolute_uri(obj.logo.url)
         return None
+
+    def get_social(self, obj):
+        social = {
+            "twitter": obj.twitter,
+            "linkedin": obj.linkedin,
+            "instagram": obj.instagram,
+            "facebook": obj.facebook,
+        }
+        return {key: value for key, value in social.items() if value}
 
     # def get_logo(self, obj):
     #     if obj.logo:
