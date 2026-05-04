@@ -43,8 +43,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://www.igasummit.com",
     "https://awards.igasummit.com",
     "http://awards.igasummit.com",
-    "https://backend.igasummit.com/",
-    "http://backend.igasummit.com/",
+    "https://backend.igasummit.com",
+    "http://backend.igasummit.com",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -59,8 +59,8 @@ CSRF_TRUSTED_ORIGINS = [
     "http://www.igasummit.com",
     "https://awards.igasummit.com",
     "http://awards.igasummit.com",
-    "https://backend.igasummit.com/",
-    "http://backend.igasummit.com/",
+    "https://backend.igasummit.com",
+    "http://backend.igasummit.com",
 ]
 
 
